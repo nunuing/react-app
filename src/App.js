@@ -28,7 +28,6 @@ function Nav(props) {
     </nav>
   );
 }
-
 function Article(props) {
   return (
     <article>
