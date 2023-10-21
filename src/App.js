@@ -9,6 +9,7 @@ function Header(props) {
     </header>
   );
 }
+
 function Nav(props) {
   const lis = []
   for(let i = 0; i < props.topics.length; i++) {
@@ -28,6 +29,7 @@ function Nav(props) {
     </nav>
   );
 }
+
 function Article(props) {
   return (
     <article>
@@ -36,6 +38,7 @@ function Article(props) {
     </article>
   );
 }
+
 function App() {
   const topics = [
     { id: 1, title: 'html', body: 'html is ...' },
