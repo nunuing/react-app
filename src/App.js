@@ -1,4 +1,5 @@
 import './App.css';
+import { useState } from 'react';     //훅을 사용 -> react에서 제공
 function Header(props) {
   return (
     <header>
@@ -17,7 +18,7 @@ function Nav(props) {
     lis.push(<li key={t.id}>
       <a id={t.id} href={'/read/' + t.id} onClick={(event)=>{
         event.preventDefault();
-        props.onChangeMode(event.target.id);  //event.target : 이벤트를 유발시킨 태그
+        props.onChangeMode(Number(event.target.id));  //event.target : 이벤트를 유발시킨 태그
       }}>{t.title}</a>
       </li>)   //자동으로 생성하는 경우 Unique한 key값을 부여해야함
   }
@@ -40,20 +41,38 @@ function Article(props) {
 }
 
 function App() {
+  const [mode, setMode] = useState('WELCOME');
+  const [id, setID] = useState(null);
+  
   const topics = [
     { id: 1, title: 'html', body: 'html is ...' },
     { id: 2, title: 'css', body: 'css is ...' },
     { id: 3, title: 'js', body: 'js is ...' }
   ]
+  let content = null;
+  if (mode === 'WELCOME') {
+    content = <Article title="welocome" body="Hello, WEB"></Article>;
+  }
+  else if (mode === 'READ') {
+    let title, body = null;
+    for(let i = 0; i < topics.length; i++) {
+      if (topics[i].id === id) {
+        title = topics[i].title;
+        body = topics[i].body;
+      }
+    }
+    content = <Article title={title} body={body}></Article>
+  }
   return (
     <div>
       <Header title="WEB" onChangeMode={()=>{
-        alert('Header');
+        setMode('WELCOME');
       }}></Header>
-      <Nav topics={topics} onChangeMode={(id)=>{
-        alert(id);
+      <Nav topics={topics} onChangeMode={(_id)=>{
+        setMode('READ');
+        setID(_id);
       }}></Nav>
-      <Article title="welocome" body="Hello, WEB"></Article>
+      {content}
     </div>
   );
 }
