@@ -1,4 +1,3 @@
-import { eventWrapper } from '@testing-library/user-event/dist/utils';
 import './App.css';
 import { useState } from 'react';     //훅을 사용 -> react에서 제공
 function Header(props) {
@@ -131,6 +130,18 @@ function App() {
       }
     }
     content = <Update title={title} body={body} onUpdate={(title, body)=>{
+      console.log(title, body);
+      const newTopics = [...topics];
+      const updatedTopic = {id:id, title:title, body:body};
+
+      for (let i = 0; i < newTopics.length; i++) {
+        if (newTopics[i].id === id) {
+          newTopics[i] = updatedTopic;
+          break;
+        }
+      }
+      setTopics(newTopics);
+      setMode('READ');
     }}></Update>
   }
   return (
