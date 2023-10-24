@@ -82,10 +82,14 @@ function App() {
   }
   else if(mode === 'CREATE'){
     content = <Create onCreate={(_title, _body)=>{
-      const newTopic = {title:_title, body:_body};
+      const newTopic = {id:nextID, title:_title, body:_body};
       const newTopics = [...topics];
       newTopics.push(newTopic);
       setTopics(newTopics);
+
+      setMode('READ');
+      setID(nextID);
+      setNextID(nextID + 1);
     }}></Create>
   }
   return (
